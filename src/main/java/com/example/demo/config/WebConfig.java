@@ -53,4 +53,14 @@ public class WebConfig implements WebMvcConfigurer {
         filterRegistrationBean.addUrlPatterns(USER_ROLE_REQUIRED_PATH_PATTERNS);
         return filterRegistrationBean;
     }
+
+    // ADMIN 권한 필터 추가
+    @Bean
+    public FilterRegistrationBean adminRoleFilter() {
+        FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
+        filterRegistrationBean.setFilter(new RoleFilter(Role.ADMIN));
+        filterRegistrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE + 1);
+        filterRegistrationBean.addUrlPatterns("/admins/*");
+        return filterRegistrationBean;
+    }
 }
