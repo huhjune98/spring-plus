@@ -34,12 +34,24 @@ public class Item {
         this.description = description;
         this.manager = manager;
         this.owner = owner;
+        this.status = "PENDING";
     }
 
-    public Item() {}
+    @PrePersist
+    private void setDefaultStatus() {
+        if (this.status == null) {
+            this.status = "PENDING";  // 기본값 설정
+        }
+    }
+
+    public Item() {
+        this.status = "PENDING";
+    }
 
     //itemEntityTest에서 사용하기 위해서, 삭제가능
     public void setStatus(String status) {
-        this.status = status;
-    }
+        if (status == null) {
+            throw new NullPointerException("status는 null일 수 없습니다.");
+        }
+        this.status = status;    }
 }
