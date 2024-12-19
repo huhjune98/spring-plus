@@ -35,4 +35,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     @Query("SELECT r FROM Reservation r LEFT JOIN FETCH r.user u LEFT JOIN FETCH r.item i WHERE (:userId IS NULL OR u.id = :userId) AND (:itemId IS NULL OR i.id = :itemId)")
     List<Reservation> findReservations(@Param("userId") Long userId, @Param("itemId") Long itemId);
 
+    default Reservation findByIdOrThrow(Long id) {
+        return findById(id).orElseThrow(()-> new IllegalArgumentException("해당 ID에 맞는 데이터가 존재하지 않습니다."));
+    }
 }
