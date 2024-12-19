@@ -37,4 +37,9 @@ public class Item {
     }
 
     public Item() {}
+
+    //itemEntityTest에서 사용하기 위해서, 삭제가능
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
